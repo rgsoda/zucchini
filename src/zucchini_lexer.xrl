@@ -1,8 +1,10 @@
 Definitions.
 
-A = [a-z][a-zA-Z0-9_\.]
+A = [a-zA-Z0-9_\.()]
 D = [0-9]
 S = [\s\t]
+CR = \r
+NL = \n
 
 Rules.
 
@@ -15,7 +17,7 @@ Rules.
 {S}*{D}+ : {token,{value,TokenLine,to_integer(TokenChars)}}.
 {S}*{D}+\.{D}+ : {token,{value,TokenLine,to_float(TokenChars)}}.
 {S}*".+" : {token,{value,TokenLine,to_string(TokenChars)}}.
-{S}*[^=\[;""\n]+ : {token,{value,TokenLine,string:strip(TokenChars)}}.
+{S}*[^=\[;""\r\n]+ : {token,{value,TokenLine,string:strip(TokenChars)}}.
 ;.* : skip_token.
 [\000-\s]+ : skip_token.
 
