@@ -13,9 +13,14 @@ properties -> property : ['$1'].
 properties -> property properties : ['$1' | '$2'].
 
 property -> key '=' value : {value_of('$1'), value_of('$3')}.
+property -> key '='  : {value_of('$1'), empty_value()}.
 
 Erlang code.
 
 -compile({inline, value_of/1}).
 value_of(Token) ->
     element(3, Token).
+
+-compile({inline, value_of/1}).
+empty_value() ->
+    "".
